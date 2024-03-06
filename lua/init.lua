@@ -1,4 +1,4 @@
-require 'lua.bootstrap'
+require 'bootstrap'
 
 require('lazy').setup {
   { import = 'plugins' },

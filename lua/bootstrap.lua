@@ -1,5 +1,5 @@
-require 'lua.settings'
-require 'lua.keymaps'
+require 'settings'
+require 'keymaps'
 
 -- AutoCMD
 vim.api.nvim_create_autocmd('TextYankPost', {
