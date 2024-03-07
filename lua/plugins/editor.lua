@@ -1,3 +1,21 @@
+vim.api.nvim_create_user_command('FormatDisable', function(args)
+  if args.bang then
+    vim.b.disable_autoformat = true
+  else
+    vim.g.disable_format = true
+  end
+end, {
+  bang = true,
+  desc = 'Disable autoformat on save',
+})
+
+vim.api.nvim_create_user_command('FormatEnable', function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_format = false
+end, {
+  desc = 'Enable autoformat on save',
+})
+
 return {
   -- I commented line below because it mess up with my setup
   -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
@@ -6,10 +24,13 @@ return {
     'stevearc/conform.nvim',
     opts = {
       notify_on_error = false,
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
+      format_on_save = function(bufnr)
+        if vim.g.disable_format or vim.b[bufnr].disable_autoformat then
+          return
+        end
+
+        return { timeout_ms = 500, lsp_fallback = true }
+      end,
       formatters_by_ft = {
         lua = { 'stylua' },
       },

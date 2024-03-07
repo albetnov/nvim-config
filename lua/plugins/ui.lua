@@ -112,7 +112,14 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     config = function()
-      require('nvim-tree').setup()
+      require('nvim-tree').setup {
+        sync_root_with_cwd = true,
+        prefer_startup_root = true,
+        update_focused_file = {
+          enable = true,
+          update_cwd = true,
+        },
+      }
 
       vim.keymap.set('n', '<C-e>', ':NvimTreeToggle<CR>', { desc = 'Toggle [E]xplorer' })
     end,

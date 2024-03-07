@@ -41,14 +41,6 @@ return {
           --  For example, in C this would take you to the header
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-          map('<C-f>', function()
-            vim.lsp.buf.format { timeout_ms = 3000 }
-          end, '[F]ormat File')
-
-          map('<leader>lr', function()
-            vim.lsp.restart()
-          end, '[L]SP [R]estart')
-
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
